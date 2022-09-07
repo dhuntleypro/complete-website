@@ -1,22 +1,28 @@
 import styled, { createGlobalStyle } from 'styled-components';
 import { motion } from 'framer-motion';
+
 const GlobalStyle = createGlobalStyle`
   *{
     box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    
+    /* font-family: 'Montserrat', sans-serif; */
+    font-family: 'Source Sans Pro', sans-serif;
+
   }
 `;
 
 export const Container = styled.div`
+  z-index: 1;
   width: 100%;
   max-width: 1300px;
-  margin-right: auto;
-  margin-left: auto;
-  padding: 0 50px;
+  margin: ${({ margin }) => (margin ? margin : '0 auto')};
+  padding: ${({ padding }) => (padding ? padding : '0 50px')};
+
   @media screen and (max-width: 960px) {
-    padding: 0 30px;
+    padding-right: 30px;
+    padding-left: 30px;
   }
 `;
 export const MainHeading = styled.h1`
@@ -24,8 +30,8 @@ export const MainHeading = styled.h1`
   margin-bottom: 2rem;
   color: ${({ inverse }) => (inverse ? '$403ae3' : '#fff')};
   width: 100%;
-  letter-spacing: 4px;
   text-align: center;
+  letter-spacing: 4px;
 `;
 
 export const Heading = styled.h2`
@@ -35,24 +41,33 @@ export const Heading = styled.h2`
   margin-top: ${({ mt }) => (mt ? mt : '')};
   color: ${({ inverse }) => (inverse ? '$403ae3' : '#fff')};
   letter-spacing: 0.4rem;
-  line-height: 1.06;
+  /* line-height: 1.06; */
   text-align: center;
   width: ${({ width }) => (width ? width : '100%')};
 `;
 export const TextWrapper = styled.span`
-  color: ${({ color }) => (color ? color : '')};
   font-size: ${({ size }) => (size ? size : '')};
   font-weight: ${({ weight }) => (weight ? weight : '')};
   letter-spacing: ${({ spacing }) => (spacing ? spacing : '')};
+  text-align: ${({ textAlign }) => (textAlign ? textAlign : '')};
   padding: ${({ padding }) => (padding ? padding : '')};
   margin: ${({ margin }) => (margin ? margin : '')};
   margin-bottom: ${({ mb }) => (mb ? mb : '')};
   margin-top: ${({ mt }) => (mt ? mt : '')};
+  width: ${({ width }) => (width ? width : 'auto')};
+  min-width: ${({ minWidth }) => (minWidth ? minWidth : '')};
+  max-width: ${({ maxWidth }) => (maxWidth ? maxWidth : '')};
+  height: ${({ height }) => (height ? height : '')};
+  min-height: ${({ minHeight }) => (minHeight ? minHeight : '')};
+  max-height: ${({ maxHeight }) => (maxHeight ? maxHeight : '')};
+  min-height: ${({ minheight }) => (minheight ? minheight : '')};
+  color: ${({ color }) => (color ? color : '')};
 `;
 export const Section = styled.section`
   padding: ${({ padding }) => (padding ? padding : '140px 0')};
   margin: ${({ margin }) => (margin ? margin : '')};
   background: ${({ inverse }) => (inverse ? 'white' : '#071c2f')};
+  color: ${({ color }) => (color ? color : '')};
   position: ${({ position }) => (position ? position : '')};
   width: ${({ width }) => (width ? width : 'auto')};
   min-width: ${({ minWidth }) => (minWidth ? minWidth : 'auto')};
@@ -60,6 +75,7 @@ export const Section = styled.section`
   height: ${({ height }) => (height ? height : 'auto')};
   max-height: ${({ maxHeight }) => (maxHeight ? maxHeight : 'auto')};
   min-height: ${({ minHeight }) => (minHeight ? minHeight : 'auto')};
+
   @media screen and (max-width: 768px) {
     padding: ${({ smPadding }) => (smPadding ? smPadding : '70px 0')};
   }
@@ -72,6 +88,8 @@ export const Row = styled.div`
   gap: ${({ gap }) => (gap ? gap : '')};
   padding: ${({ padding }) => (padding ? padding : '')};
   margin: ${({ margin }) => (margin ? margin : '')};
+  margin-bottom: ${({ mb }) => (mb ? mb : '')};
+  margin-top: ${({ tb }) => (tb ? tb : '')};
   position: ${({ position }) => (position ? position : '')};
   width: ${({ width }) => (width ? width : 'auto')};
   min-width: ${({ minWidth }) => (minWidth ? minWidth : 'auto')};
@@ -90,6 +108,8 @@ export const Column = styled.div`
   gap: ${({ gap }) => (gap ? gap : '')};
   padding: ${({ padding }) => (padding ? padding : '')};
   margin: ${({ margin }) => (margin ? margin : '')};
+  margin-bottom: ${({ mb }) => (mb ? mb : '')};
+  margin-top: ${({ mt }) => (mt ? mt : '')};
   position: ${({ position }) => (position ? position : '')};
   width: ${({ width }) => (width ? width : 'auto')};
   min-width: ${({ minWidth }) => (minWidth ? minWidth : 'auto')};
@@ -97,6 +117,8 @@ export const Column = styled.div`
   height: ${({ height }) => (height ? height : 'auto')};
   max-height: ${({ maxHeight }) => (maxHeight ? maxHeight : 'auto')};
   min-height: ${({ minHeight }) => (minHeight ? minHeight : 'auto')};
+  color: ${({ color }) => (color ? color : '')};
+  text-align: ${({ textAlign }) => (textAlign ? textAlign : '')};
 `;
 
 export const Button = styled(motion.button)`
@@ -104,14 +126,20 @@ export const Button = styled(motion.button)`
   background: #d61eed;
   white-space: nowrap;
   padding: ${({ big }) => (big ? '12px 64px' : '10px 20px')};
-  font-size: 16px;
   color: #fff;
+  font-size: ${({ fontBig }) => (fontBig ? '20px' : '16px')};
+
   outline: none;
   border: 2px solid #fff;
   cursor: pointer;
-  overflow: hidden;
-  position: relative;
+
+  /* overflow: hidden; */
+  /* position: relative; */
+
   &:before {
+    transition: all 0.6s ease-out;
+    color: black;
+    background-color: #ebc214;
     background: #fff;
     content: '';
     position: absolute;
@@ -119,7 +147,6 @@ export const Button = styled(motion.button)`
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: -1;
-    transition: all 0.6s ease;
     width: 100%;
     height: 0%;
     transform: translate(-50%, -50%) rotate(45deg);
